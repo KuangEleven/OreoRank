@@ -1,0 +1,17 @@
+<h1>Rank your cookies!</h1>
+
+<ol>
+    {% for cookie_score in cookie_score_list %}
+        <li><form action="score" method="post">{% csrf_token %}{{ cookie_score.cookie.name }} <input type="hidden" value="{{ cookie_score.id }} " name="cookie_score_id"><input type="'text" name="score" value="{{ cookie_score.score }}"><input type="submit" name="submit" value="Update"><input type="submit" name="submit" value="Delete"></form></li>
+    {% endfor %}
+</ol>
+<form action="score" method="post">
+    {% csrf_token %}
+    <select name="cookie_id">
+        {% for cookie in unscored_cookie_list %}
+            <option value="{{ cookie.id }}">{{ cookie.name }}</option>
+        {% endfor %}
+    </select>
+    <input type="'text" name="score">
+    <input type="submit" name="submit" value="Add New Score">
+</form>

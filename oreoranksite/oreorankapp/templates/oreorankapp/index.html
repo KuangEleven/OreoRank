@@ -1,0 +1,7 @@
+<h1>The Grand Ranking!</h1>
+<h2><a href="score">Update your score</a> after you <a href="admin">login to admin.</a></h2>
+<ol>
+    {% for cookie_score in cookie_score_list %}
+    <li>{{ cookie_score.name }}: {{ cookie_score.score}}</li>
+    {% endfor %}
+</ol>

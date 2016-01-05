@@ -8,7 +8,7 @@ class Cookie(models.Model):
 
 class CookieScore(models.Model):
     def __str__(self):
-       return self.user.name + ' ' + self.cookie.name
+       return self.user.username + ' ' + self.cookie.name
     cookie = models.ForeignKey(Cookie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.FloatField()
