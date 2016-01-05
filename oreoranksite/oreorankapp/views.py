@@ -16,7 +16,8 @@ def index(request):
     weighting_dict = dict()
     user_list = User.objects.all()
     for user in user_list:
-        weighting_dict[user.id] = WEIGHT_CONSTANT / CookieScore.objects.filter(user_id=user.id).aggregate(Max('score'))['score__max']
+        if len(CookieScore.objects.filter(user_id=user.id)) > 0:
+            weighting_dict[user.id] = WEIGHT_CONSTANT / CookieScore.objects.filter(user_id=user.id).aggregate(Max('score'))['score__max']
     cookie_score_list = []
     cookie_list = Cookie.objects.all()
     for cookie in cookie_list:
@@ -38,6 +39,7 @@ def index(request):
         weighted_cookie_score.score = total_score / len_score
 
         cookie_score_list.append(weighted_cookie_score)
+    cookie_score_list.sort(key=lambda x: x.score, reverse=True)
     context = {'cookie_score_list': cookie_score_list}
     return render(request, 'oreorankapp/index.html', context)
 
